@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import java.util.List;
 
 @RestController
@@ -34,6 +33,13 @@ public class Controller {
     @GetMapping("/")
     public String home(){
         return "This is the home page";
+    }
+
+    @GetMapping("/inc")
+    public String increment(){
+        DBHandler.updateTaskCounter(0);
+        DBHandler.updateTimeslotCounter(1);
+        return taskCounter + " " + timeslotCounter;
     }
 
     @GetMapping("/data")

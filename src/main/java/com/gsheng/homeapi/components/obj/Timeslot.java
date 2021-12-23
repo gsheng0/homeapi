@@ -9,13 +9,6 @@ public class Timeslot {
     private int repeated = 0;
     private DateTime start, end;
     public Timeslot(int id, String title, int repeated, DateTime start, DateTime end){
-        System.out.println("ID: " + id);
-        System.out.println("Title: " + title);
-        System.out.println("Repeated: " + repeated);
-        System.out.println("Start: " + start);
-        System.out.println("End: " + end);
-
-
         this.id = id;
         this.title = title;
         this.repeated = repeated;
