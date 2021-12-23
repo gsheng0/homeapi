@@ -1,15 +1,16 @@
 package com.gsheng.homeapi;
 
 import com.gsheng.homeapi.components.DBHandler;
+import com.gsheng.homeapi.components.obj.CounterPacket;
 import com.gsheng.homeapi.components.obj.DateTime;
+import com.gsheng.homeapi.components.obj.Task;
 import com.gsheng.homeapi.components.obj.Timeslot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.w3c.dom.css.Counter;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -35,27 +36,33 @@ public class Controller {
         return "This is the home page";
     }
 
-    @GetMapping("/inc")
-    public String increment(){
-        DBHandler.updateTaskCounter(0);
-        DBHandler.updateTimeslotCounter(1);
-        return taskCounter + " " + timeslotCounter;
+    @GetMapping("/correct")
+    public CounterPacket correctCounter(){
+        DBHandler.correctCounters();
+        timeslotCounter = DBHandler.getTimeslotCounter();
+        taskCounter = DBHandler.getTaskCounter();
+        CounterPacket packet = new CounterPacket();
+        packet.setTaskCounter(taskCounter);
+        packet.setTimeslotCounter(timeslotCounter);
+        return packet;
     }
 
-    @GetMapping("/data")
-    public List<Timeslot> getTimeSlot(){
-        return DBHandler.getAllTimeslots();
+    @PostMapping("/add/task")
+    public void addTask(@RequestBody Task task){
+        task.setId(taskCounter);
+        taskCounter++;
+        DBHandler.updateTaskCounter(taskCounter);
+        DBHandler.insertTask(task);
     }
 
-    @GetMapping("/insert")
-    public int insert(){
-        return DBHandler.insertTimeslot(new Timeslot(1, "Second timeslot", 0, DateTime.parseDate("12/12/2021 7:00 PM"), DateTime.parseDate("12/12/2021 8:00 PM")));
+    @PostMapping("/add/timeslot")
+    public void addTimeslot(@RequestBody Timeslot slot){
+        slot.setId(timeslotCounter);
+        timeslotCounter++;
+        DBHandler.updateTimeslotCounter(timeslotCounter);
+        DBHandler.insertTimeslot(slot);
     }
 
-    @GetMapping("/exit")
-    public void exit(){
-        SpringApplication.exit(context);
 
-    }
 
 }

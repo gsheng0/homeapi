@@ -62,6 +62,10 @@ public class DBHandler {
         String command = "INSERT INTO timeslots (id, title, repeated, start, end) VALUES (?, ?, ?, ?, ?)";
         return template.update(command, slot.getId(), slot.getTitle(), slot.getRepeated(), slot.getStart().toString(), slot.getEnd().toString());
     }
+    public static int insertTask(Task task){
+        String command = "INSERT INTO tasks (id, title, repeated, date) VALUES (?, ?, ?, ?)";
+        return template.update(command, task.getId(), task.getTitle(), task.getRepeated(), task.getDate().toString());
+    }
     public static int updateTimeslotCounter(int counter){
         String command = "UPDATE counters SET counter = ? WHERE tablename = ?";
         return template.update(command, counter, "timeslots");

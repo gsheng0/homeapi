@@ -11,6 +11,7 @@ public class Task {
         this.repeated = repeated;
         this.date = date;
     }
+    public void setId(int id){ this.id = id; }
     public int getId() { return id;}
     public String getTitle() { return title; }
     public int getRepeated() { return repeated; }

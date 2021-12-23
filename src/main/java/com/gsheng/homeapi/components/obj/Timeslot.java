@@ -15,6 +15,7 @@ public class Timeslot {
         this.start = start;
         this.end = end;
     }
+    public void setId(int id){ this.id = id; }
     public int getId() { return id;}
     public String getTitle() { return title; }
     public int getRepeated() { return repeated; }

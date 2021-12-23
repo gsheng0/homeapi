@@ -48,6 +48,9 @@ public class DateTime {
         out.minute = Integer.parseInt(time[1]);
         return out;
     }
+    public Date toDate(){
+        return new Date(month, day, year);
+    }
     public String toString(){
         return getDate() + " " + getTime();
     }
