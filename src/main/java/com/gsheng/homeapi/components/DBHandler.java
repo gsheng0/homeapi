@@ -1,6 +1,8 @@
 package com.gsheng.homeapi.components;
 
+import com.gsheng.homeapi.components.obj.Task;
 import com.gsheng.homeapi.components.obj.Timeslot;
+import com.gsheng.homeapi.components.rowmapper.TaskRowMapper;
 import com.gsheng.homeapi.components.rowmapper.TimeslotRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -38,7 +40,6 @@ public class DBHandler {
 
     public static Timeslot getFirstTimeslot(){
         List<Timeslot> list = getAllTimeslots();
-
         return list.get(0);
     }
 
@@ -46,11 +47,17 @@ public class DBHandler {
         String command = "SELECT * FROM timeslots;";
         return template.query(command, new TimeslotRowMapper());
     }
+    public static List<Task> getAllTasks(){
+        String command = "SELECT * FROM tasks";
+        return template.query(command, new TaskRowMapper());
+    }
 
     public static int insertTimeslot(Timeslot slot){
         String command = "INSERT INTO timeslots (id, title, repeated, start, end) VALUES (?, ?, ?, ?, ?)";
         return template.update(command, slot.getId(), slot.getTitle(), slot.getRepeated(), slot.getStart().toString(), slot.getEnd().toString());
     }
+
+
 }
 
 /*

@@ -3,15 +3,27 @@ package com.gsheng.homeapi;
 import com.gsheng.homeapi.components.DBHandler;
 import com.gsheng.homeapi.components.obj.DateTime;
 import com.gsheng.homeapi.components.obj.Timeslot;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RestController
 @CrossOrigin("*")
 public class Controller {
+    @Autowired
+    private JdbcTemplate template;
+    private int timeslotCounter, taskCounter;
+
+    @PostConstruct
+    public void init(){
+        DBHandler.setTemplate(template);
+        timeslotCounter = DBHandler.getAll
+    }
     @GetMapping("/")
     public String home(){
         return "This is the home page";
