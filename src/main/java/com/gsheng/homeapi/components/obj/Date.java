@@ -1,8 +1,8 @@
 package com.gsheng.homeapi.components.obj;
 
-public class Date {
+public class Date implements Comparable<Date>{
     private int day, month, year;
-    public Date(int month, int day, int year){
+    public Date(int month, int day, int year) {
         this.month = month;
         this.day = day;
         this.year = year;
@@ -25,5 +25,30 @@ public class Date {
             strs = str.split("-");
         }
         return new Date(Integer.parseInt(strs[0]), Integer.parseInt(strs[1]), Integer.parseInt(strs[2]));
+    }
+    public int compareTo(Date other){
+        if(other.year < year){
+            return 1;
+        }
+        else if(other.year > year){
+            return -1;
+        }
+        else{
+            if(other.month == month){
+                if(other.day == day){
+                    return 0;
+                }
+                else if(other.day < day){
+                    return 1;
+                }
+                return -1;
+            }
+            else if(other.month > month){
+                return -1;
+            }
+            else{
+                return 1;
+            }
+        }
     }
 }

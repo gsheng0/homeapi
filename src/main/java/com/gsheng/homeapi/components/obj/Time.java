@@ -14,6 +14,11 @@ public class Time implements Comparable<Time>{
     public String toString() {
         return (hour < 10 ? "0" + hour : hour) + ":" + (minute < 10 ? "0" + minute : minute) + " " + m;
     }
+    public static Time parseTime(String input){
+        String[] split = input.split(" ");
+        String[] time = split[0].split(":");
+        return new Time(Integer.parseInt(time[0]), Integer.parseInt(time[1]), split[1]);
+    }
     public int compareTo(Time other){
         if(other.getPeriod().equals(m)){
             if(other.getHour() == hour){

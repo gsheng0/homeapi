@@ -1,60 +1,52 @@
 package com.gsheng.homeapi.components.obj;
 
-public class DateTime {
-    private int day, month, year, hour, minute;
-    private String m;
+public class DateTime implements Comparable<DateTime>{
+    private Date date;
+    private Time time;
     private DateTime(){}
     public DateTime(int month, int day, int year, int hour, int minute, String m){
-        this.day = day;
-        this.month = month;
-        this.year = year;
-        this.hour = hour;
-        this.minute = minute;
-        this.m = m.toUpperCase();
+        date = new Date(month, day, year);
+        time = new Time(hour, minute, m);
     }
-    public int getDay() { return day;}
-    public int getMonth() { return month;}
-    public int getYear() { return year; }
-    public int getHour() { return hour;}
-    public int getMinute() { return minute; }
-    public String getDate(){
-        return month + "/" + day + "/" + year;
-    }
-    public String getDate(boolean notAmerican){
-        return (notAmerican ? day + "/" + month : month + "/" + day) + "/" + year;
-    }
-    public String getTime() {
-        return (hour < 10 ? "0" + hour : hour) + ":" + (minute < 10 ? "0" + minute : minute) + " " + m;
-    }
+    public int getDay() { return date.getDay();}
+    public int getMonth() { return date.getMonth(); }
+    public int getYear() { return date.getYear(); }
+    public int getHour() { return time.getHour(); }
+    public int getMinute() { return time.getMinute(); }
+    public String getPeriod() { return time.getPeriod(); }
+    public Date getDate() { return date; }
+    public Time getTime() { return time; }
     public static DateTime parseDate(String input){
         /*
         Format for string parsing should be:
         MM/DD/YYYY HH:MM AM
          */
         String[] split = input.split(" ");
-        DateTime out = new DateTime();
-        out.m = split[2].toUpperCase();
+        String m = split[2].toUpperCase();
 
         String[] date = split[0].split("/");
         if(date.length < 3){
             date = split[0].split("-");
         }
-        out.month = Integer.parseInt(date[0]);
-        out.day = Integer.parseInt(date[1]);
-        out.year = Integer.parseInt(date[2]);
+        int month = Integer.parseInt(date[0]);
+        int day = Integer.parseInt(date[1]);
+        int year = Integer.parseInt(date[2]);
 
         String[] time = split[1].split(":");
-        out.hour = Integer.parseInt(time[0]);
-        out.minute = Integer.parseInt(time[1]);
-        return out;
-    }
-    public Date toDate(){
-        return new Date(month, day, year);
+        int hour = Integer.parseInt(time[0]);
+        int minute = Integer.parseInt(time[1]);
+        return new DateTime(month, day, year, hour, minute, m);
     }
     public String toString(){
         return getDate() + " " + getTime();
     }
     public String toString(boolean notAmerican){
-        return getDate(notAmerican) + " " + getTime();
+        return date.toString(notAmerican) + " " + getTime();
+    }
+    public int compareTo(DateTime other){
+        if(date.compareTo(other.date) != 0){
+            return date.compareTo(other.date);
+        }
+        else return time.compareTo(other.time);
     }
 }
