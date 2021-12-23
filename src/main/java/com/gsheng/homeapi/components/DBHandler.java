@@ -38,9 +38,13 @@ public class DBHandler {
         DBHandler.ready = template == null;
     }
 
-    public static Timeslot getFirstTimeslot(){
-        List<Timeslot> list = getAllTimeslots();
-        return list.get(0);
+    public static int getTimeslotCounter(){
+        String command = "SELECT * FROM counters WHERE tablename = ?";
+        return template.update(command, "timeslots");
+    }
+    public static int getTaskCounter(){
+        String command = "SELECT * FROM counters WHERE tablename = ?";
+        return template.update(command, "tasks");
     }
 
     public static List<Timeslot> getAllTimeslots(){

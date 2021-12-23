@@ -17,12 +17,14 @@ import java.util.List;
 public class Controller {
     @Autowired
     private JdbcTemplate template;
-    private int timeslotCounter, taskCounter;
+    private int timeslotCounter, taskCounter; //hold the id values to be used for next insertion
 
     @PostConstruct
     public void init(){
         DBHandler.setTemplate(template);
-        timeslotCounter = DBHandler.getAll
+        timeslotCounter = DBHandler.getTimeslotCounter();
+        taskCounter = DBHandler.getTaskCounter();
+
     }
     @GetMapping("/")
     public String home(){
