@@ -52,3 +52,10 @@ public class DBHandler {
         return template.update(command, slot.getId(), slot.getTitle(), slot.getRepeated(), slot.getStart().toString(), slot.getEnd().toString());
     }
 }
+
+/*
+For command line mysql:
+    1. ln -s /usr/local/mysql/bin/mysql /usr/local/bin/mysql
+    2. mysql -u root -p
+    3. Enter password
+ */
