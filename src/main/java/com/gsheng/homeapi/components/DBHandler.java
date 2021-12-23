@@ -2,10 +2,12 @@ package com.gsheng.homeapi.components;
 
 import com.gsheng.homeapi.components.obj.Task;
 import com.gsheng.homeapi.components.obj.Timeslot;
+import com.gsheng.homeapi.components.rowmapper.CounterMapper;
 import com.gsheng.homeapi.components.rowmapper.TaskRowMapper;
 import com.gsheng.homeapi.components.rowmapper.TimeslotRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,12 +41,12 @@ public class DBHandler {
     }
 
     public static int getTimeslotCounter(){
-        String command = "SELECT * FROM counters WHERE tablename = ?";
-        return template.update(command, "timeslots");
+        String command = "SELECT counter FROM counters WHERE tablename = ?";
+        return template.query(command, new CounterMapper(), "timeslots").get(0);
     }
     public static int getTaskCounter(){
-        String command = "SELECT * FROM counters WHERE tablename = ?";
-        return template.update(command, "tasks");
+        String command = "SELECT counter FROM counters WHERE tablename = ?";
+        return template.query(command, new CounterMapper(), "tasks").get(0);
     }
 
     public static List<Timeslot> getAllTimeslots(){
