@@ -3,17 +3,10 @@ package com.gsheng.homeapi.components.obj;
 public class DateTime implements Comparable<DateTime>{
     private Date date;
     private Time time;
-    private DateTime(){}
-    public DateTime(int month, int day, int year, int hour, int minute, String m){
+    public DateTime(int month, int day, int year, int hour, int minute, String period){
         date = new Date(month, day, year);
-        time = new Time(hour, minute, m);
+        time = new Time(hour, minute, period);
     }
-    public int getDay() { return date.getDay();}
-    public int getMonth() { return date.getMonth(); }
-    public int getYear() { return date.getYear(); }
-    public int getHour() { return time.getHour(); }
-    public int getMinute() { return time.getMinute(); }
-    public String getPeriod() { return time.getPeriod(); }
     public Date getDate() { return date; }
     public Time getTime() { return time; }
     public static DateTime parseDate(String input){

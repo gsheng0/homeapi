@@ -1,8 +1,5 @@
 package com.gsheng.homeapi.components.obj;
 
-
-import com.gsheng.homeapi.components.obj.DateTime;
-
 public class Timeslot {
     private int id;
     private String title;

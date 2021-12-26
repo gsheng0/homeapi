@@ -1,10 +1,7 @@
 package com.gsheng.homeapi;
 
 import com.gsheng.homeapi.components.DBHandler;
-import com.gsheng.homeapi.components.obj.CounterPacket;
-import com.gsheng.homeapi.components.obj.DateTime;
-import com.gsheng.homeapi.components.obj.Task;
-import com.gsheng.homeapi.components.obj.Timeslot;
+import com.gsheng.homeapi.components.obj.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
@@ -60,6 +57,7 @@ public class Controller {
 
     @PostMapping("/add/timeslot")
     public void addTimeslot(@RequestBody Timeslot slot){
+        System.out.println(slot);
         slot.setId(timeslotCounter);
         timeslotCounter++;
         DBHandler.updateTimeslotCounter(timeslotCounter);
