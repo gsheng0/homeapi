@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.w3c.dom.css.Counter;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -31,9 +33,10 @@ public class Controller {
         taskCounter = DBHandler.getTaskCounter();
 
     }
-    @GetMapping("/")
-    public String home(){
-        return "This is the home page";
+
+    @GetMapping("/get/timeslot/all")
+    public List<Timeslot> getAllTimeslots(){
+        return DBHandler.getAllTimeslots();
     }
 
     @GetMapping("/correct")
@@ -62,6 +65,22 @@ public class Controller {
         DBHandler.updateTimeslotCounter(timeslotCounter);
         DBHandler.insertTimeslot(slot);
     }
+
+    @GetMapping("/")
+    public Timeslot insertTimeslot(){
+        LocalDate now = LocalDate.now();
+        int year = now.getYear();
+        int month = now.getMonthValue();
+        int day = now.getDayOfMonth();
+        DateTime start = new DateTime(month, day, year, 12, 0, "AM");
+        DateTime end = new DateTime(month, day, year, (int)(Math.random() * 12) + 1, 0,"PM");
+        Timeslot temp = new Timeslot(timeslotCounter, "Timeslot " + timeslotCounter, 0, start, end);
+        timeslotCounter++;
+        DBHandler.updateTimeslotCounter(timeslotCounter);
+        DBHandler.insertTimeslot(temp);
+        return temp;
+    }
+
 
 
 
