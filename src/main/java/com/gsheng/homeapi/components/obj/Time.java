@@ -3,6 +3,9 @@ package com.gsheng.homeapi.components.obj;
 public class Time implements Comparable<Time>{
     private int hour, minute;
     private String period = "AM";
+    public Time(){
+
+    }
     public Time(int hour, int minute, String period){
         this.hour = hour;
         this.minute = minute;

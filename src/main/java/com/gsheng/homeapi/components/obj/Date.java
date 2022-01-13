@@ -2,6 +2,7 @@ package com.gsheng.homeapi.components.obj;
 
 public class Date implements Comparable<Date>{
     private int day, month, year;
+    public Date(){}
     public Date(int month, int day, int year) {
         this.month = month;
         this.day = day;
